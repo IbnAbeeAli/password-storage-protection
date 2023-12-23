@@ -12,6 +12,8 @@ def generate_salt():
     
     return salt
 
+WORK_FACTOR = 20
+
 def hash_password(salt, password, work_factor, pepper):
     # Create a string that concatenates the salt, the password, the work factor, and the pepper
     string = salt + password + pepper
