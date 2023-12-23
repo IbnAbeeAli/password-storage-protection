@@ -1,5 +1,16 @@
 import hashlib
 import timeit
+import random
+import string
+
+def generate_salt():
+    # Create a string of uppercase letters and digits
+    characters = string.ascii_uppercase + string.digits
+    
+    # Generate a random salt of length 8
+    salt = ''.join(random.choice(characters) for _ in range(16))
+    
+    return salt
 
 def hash_password(salt, password, work_factor, pepper):
     # Create a string that concatenates the salt, the password, the work factor, and the pepper
@@ -34,3 +45,5 @@ def find_work_factor(salt, password, pepper, target_time_in_seconds=1):
 
     # Return the work factor
     return work_factor
+
+
