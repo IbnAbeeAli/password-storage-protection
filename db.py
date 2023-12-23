@@ -1,31 +1,22 @@
-import mysql.connector
+import sqlite3
 
-# Replace these with your actual MySQL database credentials
-db_config = {
-    'host': '127.0.0.1',
-    'user': 'root',
-    'password': 'seecs@123',
-    'database': 'topsecret',
-}
+# Connect to the SQLite database
+conn = sqlite3.connect('test.db')
 
-# Establish a connection to the MySQL server
-connection = mysql.connector.connect(**db_config)
+# Create a cursor object to execute SQL queries
+cursor = conn.cursor()
 
-# Create a cursor object to interact with the database
-cursor = connection.cursor()
+# Execute a SELECT query to retrieve all rows from a specific table
+table_name = 'user_credentials'  # Replace 'your_table' with the actual name of your table
+cursor.execute(f"SELECT * FROM {table_name}")
 
-
-# Show the contents of the table
-show_table_query = "SELECT * FROM user_credentials"
-cursor.execute(show_table_query)
-
-# Fetch all the rows
+# Fetch all rows from the result set
 rows = cursor.fetchall()
 
-# Display the results
+# Print the rows
 for row in rows:
     print(row)
 
-# Close the cursor and connection
+# Close the cursor and the connection
 cursor.close()
-connection.close()
+conn.close()
