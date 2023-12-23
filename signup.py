@@ -8,10 +8,10 @@ WORK_FACTOR = 20
 def generate_salt():
     # Create a string of uppercase letters and digits
     characters = string.ascii_uppercase + string.digits
-    
+
     # Generate a random salt of length 8
     salt = ''.join(random.choice(characters) for _ in range(16))
-    
+
     return salt
 
 def print_ascii_art():
@@ -21,7 +21,7 @@ def print_ascii_art():
           Welcome to My Sign-Up Page
     *************************************
                 \\  |  /
-                 .-'-.  
+                 .-'-.
             --- (   ) ---
                  '-'
     *************************************
@@ -49,29 +49,27 @@ def add_to_db(username, password_hash, salt):
         cursor = conn.cursor()
 
         # Execute a SELECT query
-        
+
         select_query = "SELECT * FROM user_credentials;"
         cursor.execute(select_query)
-        
+
         # Display the returned rows
         rows = cursor.fetchall()
         print("Rows returned from SELECT query:")
 
 #   todo: Write logic to check the username among the returned tuple
-        # to check if the username already doesn't exist 
+        # to check if the username already doesn't exist
         for row in rows:
             print(row)
 
-        if (user_exists = True)
+        if (user_exists == True):
             return -1
 # todo: if username doesn't exist then proceed to add the new user to the database
-            
-
         # Execute an INSERT query
-        insert_query = f"INSERT INTO user_credentials(username, password_hash, salt) VALUES ({username}, {password_hash}, {salt});"
+        insert_query = f"INSERT INTO user_credentials(username, password_hash, salt) VALUES ('{username}', '{password_hash}', '{salt}');"
         # Replace 'your_table_name' and 'column1', 'column2' with your actual table and column names
 
-        cursor.execute(insert_query, data)
+        cursor.execute(insert_query)
 
         # Commit the changes
         conn.commit()
@@ -102,10 +100,9 @@ def sign_up():
     flag = add_to_db(username, password_hash, salt)
     if flag == 0:
         print("\nSign-up successful! Welcome, {}!".format(username))
-    elif flag == -1: 
+    elif flag == -1:
         print("\nSign-Up Failed")
 
 
 if __name__ == "__main__":
     sign_up()
- 
