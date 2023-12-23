@@ -43,7 +43,7 @@ def add_to_db(username, password_hash, salt):
         # Execute an INSERT query
         insert_query = f"INSERT INTO user_credentials(username, password_hash, salt) VALUES ('{username}', '{password_hash}', '{salt}');"
 
-        cursor.execute(insert_query, data)
+        cursor.execute(insert_query)
 
         # Commit the changes
         conn.commit()
@@ -85,4 +85,3 @@ def sign_up():
 
 if __name__ == "__main__":
     sign_up()
- 
