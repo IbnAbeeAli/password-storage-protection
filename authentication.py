@@ -4,6 +4,8 @@ import random
 from algo import hash_password, generate_salt, get_pepper_from_file
 import getpass
 
+DB_NAME = "database.db"
+
 def print_ascii_art(text):
     # ASCII Art for Sign-Up Page
     ascii_art = f"""
@@ -18,10 +20,10 @@ def print_ascii_art(text):
     """
     print(ascii_art)
 
-def print_db_rows():
+def get_db_rows(db_name=DB_NAME):
     # Connect to the SQLite database
     try:
-        conn = sqlite3.connect('test.db')
+        conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
 
         # Fetch all rows from the database
@@ -31,12 +33,7 @@ def print_db_rows():
         # Display the returned rows
         rows = cursor.fetchall()
 
-        # Print rows in a tabular format
-        print("Username\tPassword Hash\tSalt")
-        for row in rows:
-            print(f"{row[1]}\t{row[2]}\t{row[3]}")
-
-        print()
+        return rows
 
     except sqlite3.Error as e:
         print(f"SQLite error: {e}")
@@ -46,12 +43,11 @@ def print_db_rows():
         if conn:
             conn.close()
 
-def add_to_db(username, password_hash, salt):
-    database_name="test.db"
+def add_to_db(username, password_hash, salt, db_name=DB_NAME):
 
     # Connect to the SQLite database
     try:
-        conn = sqlite3.connect(database_name)
+        conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
 
         # Fetch all rows from the database
@@ -87,10 +83,10 @@ def add_to_db(username, password_hash, salt):
         if conn:
             conn.close()
 
-def check_against_db(username, password):
+def check_against_db(username, password, db_name=DB_NAME):
     try:
         # Connect to the SQLite database
-        conn = sqlite3.connect('test.db')
+        conn = sqlite3.connect(db_name)
 
         # Create a cursor object to execute SQL queries
         cursor = conn.cursor()
@@ -108,7 +104,7 @@ def check_against_db(username, password):
 
         # Check if the user exists
         if len(rows) == 0:
-            print("User does not exist")
+            print(f"{username} does not exist")
             return False
 
         if len(rows) > 1:
@@ -134,6 +130,31 @@ def check_against_db(username, password):
     except sqlite3.Error as e:
         print(f"SQLite error: {e}")
         return False
+
+    finally:
+        # Close the database connection
+        if conn:
+            conn.close()
+
+
+def clear_db_rows(db_name=DB_NAME):
+    # Connect to the SQLite database
+    try:
+        conn = sqlite3.connect(db_name)
+        cursor = conn.cursor()
+
+        # Execute a DELETE query to delete all rows from a specific table
+        table_name = 'user_credentials'
+        delete_query = f"DELETE FROM {table_name};"
+        cursor.execute(delete_query)
+
+        # Commit the changes
+        conn.commit()
+
+        print("Rows deleted successfully.")
+
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
 
     finally:
         # Close the database connection

@@ -1,5 +1,5 @@
 import sqlite3
-from authentication import sign_in, sign_up, print_db_rows
+from authentication import sign_in, sign_up, get_db_rows
 import getpass
 
 def main():
@@ -27,8 +27,12 @@ def main():
                 print("Sign in failed")
 
         elif choice == '3':
-            print("Printing database")
-            print_db_rows()
+            print("\nPrinting database...\n")
+            rows = get_db_rows()
+            print("Username\tPassword Hash\tSalt")
+            for row in rows:
+                print(f"{row[1]}\t{row[2]}\t{row[3]}")
+            print()
 
         elif choice == '4':
             print("Program terminated")
