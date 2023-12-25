@@ -5,7 +5,7 @@ import itertools
 import timeit
 from algo import hash_password
 
-def brute_force_pepper(username, known_password, pepper_length, work_factor, peppers_to_try=10, db_file='test.db'):
+def brute_force_pepper(username, known_password, pepper_length, work_factor, peppers_to_try=10, db_file='database.db'):
     characters = string.ascii_letters + string.digits
 
     try:
