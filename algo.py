@@ -5,12 +5,12 @@ import string
 
 WORK_FACTOR = 20
 
-def hash_password(salt, password, pepper):
+def hash_password(salt, password, pepper, work_factor=WORK_FACTOR):
     # Create a string that concatenates the salt, the password, the work factor, and the pepper
     string = salt + password + pepper
 
     # Hash the string 2^work_factor times
-    for _ in range(2 ** int(WORK_FACTOR)):
+    for _ in range(2 ** int(work_factor)):
         string = hashlib.sha256(string.encode()).hexdigest()
 
     # Return the hashed string

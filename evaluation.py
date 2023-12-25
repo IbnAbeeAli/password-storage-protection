@@ -3,14 +3,7 @@ import string
 import sqlite3
 import itertools
 import timeit
-
-def hash_password(salt, password, pepper, work_factor):
-    string = salt + password + pepper
-    for _ in range(2 ** int(work_factor)):
-        string = hashlib.sha256(string.encode()).hexdigest()
-
-    # Return the hashed string
-    return string
+from algo import hash_password
 
 def brute_force_pepper(username, known_password, pepper_length, work_factor, peppers_to_try=10, db_file='test.db'):
     characters = string.ascii_letters + string.digits
@@ -67,9 +60,9 @@ def brute_force_pepper(username, known_password, pepper_length, work_factor, pep
 def main():
     username = 'Maaz'
     known_password = 'Maazahmed'
-    # hashed_password = 'hashed_password'  
+    # hashed_password = 'hashed_password'
     pepper_length = 18
-    work_factor = 20  
+    work_factor = 20
 
     brute_force_pepper(username, known_password, pepper_length, work_factor)
 
