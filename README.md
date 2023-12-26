@@ -32,3 +32,19 @@ Network Security Course Project for exploring password storage and protection te
     ```bash
     python3 -m unittest tests.py
     ```
+
+4. To run the security tests, run the following command:
+
+    On Windows:
+
+    ```powershell
+    python ./Bruteforce.py
+    python ./rainbowtable.py
+    ```
+
+    On Linux:
+
+    ```bash
+    python3 ./Bruteforce.py
+    python3 ./rainbowtable.py
+    ```
