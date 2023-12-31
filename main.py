@@ -4,8 +4,8 @@ import getpass
 
 def main():
     while True:
-        print("1. Sign in")
-        print("2. Sign up")
+        print("1. Sign up")
+        print("2. Sign in")
         print("3. Print database")
         print("4. Exit")
         print()
